@@ -1,4 +1,10 @@
 const Router = require('koa-router');
 const router = new Router();
 
-module.exports = {};
+//const topicController = require('./controllers/topic.js');
+
+router
+  .get('/', () => {})
+  .post('/', () => {});
+
+module.exports = router;
