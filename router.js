@@ -1,10 +1,10 @@
 const Router = require('koa-router');
 const router = new Router();
 
-//const topicController = require('./controllers/topic.js');
+const userController = require('./controllers/user.controller');
 
 router
-  .get('/', () => {})
+  .get('/users/:id', userController._getUser)
   .post('/', () => {});
 
 module.exports = router;
