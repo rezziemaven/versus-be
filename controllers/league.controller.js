@@ -6,11 +6,11 @@ exports._getLeagues = async (ctx) => {
   try {
     const leagues = await leagueModel._getAll(ctx.params.cityName);
     const collection = await leagues.reduce((acc,league) => {
-      const {league_id, sport_id, name, ...rest} = league;
+      const {league_id, sport_id, sport_name, ...rest} = league;
       if (!acc.hasOwnProperty(league.league_id)) acc[league.league_id] = [{
         league_id,
         sport_id,
-        sport_name: name,
+        sport_name,
       }, rest];
       else acc[league.league_id].push(rest);
       return acc;
@@ -20,7 +20,7 @@ exports._getLeagues = async (ctx) => {
       acc.push({
         league_id: leagueData.league_id,
         sport_id: leagueData.sport_id,
-        sport_name: leagueData.name,
+        sport_name: leagueData.sport_name,
         users: rest
       })
       return acc;
@@ -43,7 +43,7 @@ exports._getLeague = async (ctx) => {
     },{
       league_id: league[0].league_id,
       sport_id: league[0].sport_id,
-      sport_name: league[0].name,
+      sport_name: league[0].sport_name,
       users:[]
     });
     ctx.status = 200;
