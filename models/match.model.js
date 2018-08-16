@@ -18,8 +18,18 @@ exports._getAll = (userId, cityName) => {
     INNER JOIN leagues ON a.league_id = leagues.league_id OR b.league_id = leagues.league_id
     INNER JOIN cities USING (city_id)
     INNER JOIN sports USING (sport_id)
-    WHERE d.user_id = ${userId} OR e.user_id = ${userId} AND cities.city_name ='${cityName}'`;
-    conn.query(sql, (err, res) => {
+    WHERE d.user_id = ? OR e.user_id = ? AND cities.city_name = ?`;
+    conn.query(sql, [userId, userId, cityName], (err, res) => {
+      if (err) reject(err);
+      resolve(res);
+    });
+  });
+};
+
+exports._update = (matchId, action) => {
+  return new Promise ((resolve, reject) => {
+    const sql = `UPDATE matches SET status = ? WHERE match_id = ? LIMIT 1`;
+    conn.query(sql, [action, matchId], (err, res) => {
       if (err) reject(err);
       resolve(res);
     });

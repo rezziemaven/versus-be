@@ -31,4 +31,15 @@ exports._getMatches = async (ctx) => {
     ctx.status = 400;
     throw e;
   }
-}
+};
+
+exports._changeStatus = async (ctx) => {
+  try {
+    ctx.body = await matchModel._update(ctx.params.matchId, (ctx.params.action+'ed').toUpperCase());
+    ctx.status = 200;
+  }
+  catch (e) {
+    ctx.status = 400;
+    throw e;
+  }
+};
