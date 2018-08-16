@@ -3,23 +3,46 @@
 const conn = require('../db');
 let sql ='';
 
-//Get all topics from DB
+// const promisify = (fn) => (...args) => new Promise((resolve, reject) => {
+//   fn(...args, (err, ...rest) => {
+//     if(err) return reject(err);
+//     resolve(...rest);
+//   })
+// })
+//
+// const queryPromise = promisify(conn.query);
+//
+// exporst._get = async (id) => {
+//   sql = `SELECT * FROM stats
+//           INNER JOIN users_leagues USING (users_leagues_id)
+//           INNER JOIN users USING (user_id)
+//           INNER JOIN matches ON matches.users_leagues_1_id = users_leagues_id OR matches.users_leagues_2_id = users_leagues_id
+//           WHERE users_leagues_id=?`;
+//   return  await queryPromise(sql, [id]);
+// }
+
 exports._get = (id) => {
   return new Promise ((resolve, reject) => {
-    sql = `SELECT * FROM stats INNER JOIN users_leagues USING (user_id) INNER JOIN users USING (user_id) INNER JOIN matches ON users_leagues.users_leagues_id = matches.user1_id WHERE user_id=3 `;
-    conn.query(sql, (err, res) => {
-      if (err) reject(err);
+    sql = `SELECT * FROM stats
+            INNER JOIN users_leagues USING (users_leagues_id)
+            INNER JOIN users USING (user_id)
+            INNER JOIN matches ON matches.users_leagues_1_id = users_leagues_id OR matches.users_leagues_2_id = users_leagues_id
+            INNER JOIN leagues USING (league_id)
+            INNER JOIN cities USING (city_id)
+            INNER JOIN sports USING (sport_id)
+            WHERE users_leagues_id=?`;
+    conn.query(sql, [id], (err, res) => {
+      if (err) return reject(err);
       resolve(res);
     });
   });
 };
 
-exports._post = () => {
+exports._post = (user,ctx) => {
   return new Promise ((resolve, reject) => {
-    sql = 'INSERT INTO user (user_id, first_name, username, email, image_path) VALUES ()';
-    conn.query(sql, (err, res) => {
-      if (err) reject(err);
+    conn.query('INSERT INTO users SET ?', user , (err, res) => {
+      if (err) return resolve(err);
       resolve(res);
-    });
-  });
+    })
+  })
 };
