@@ -58,13 +58,16 @@ exports._getUser = async (ctx) => {
 
 exports._postUser = async (ctx) => {
   try {
-    const data = await userModel._post(ctx.request.body);
-    if (data.hasOwnProperty('insertId')) {
-      ctx.body = {"user_id":data.insertId};
-      ctx.status = 201;
+
+    const request = await userModel._post(ctx.request.body);
+    const response = await userModel._postResponse(request.insertId)
+
+    if(response.length){
+      ctx.body = response;
+      ctx.status = 200;
     }
     else {
-      ctx.body = data;
+      ctx.body = request;
       ctx.status = 400;
     }
   }
