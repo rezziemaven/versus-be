@@ -1,29 +1,10 @@
 'use strict';
 
 const conn = require('../db');
-let sql ='';
-
-// const promisify = (fn) => (...args) => new Promise((resolve, reject) => {
-//   fn(...args, (err, ...rest) => {
-//     if(err) return reject(err);
-//     resolve(...rest);
-//   })
-// })
-//
-// const queryPromise = promisify(conn.query);
-//
-// exporst._get = async (id) => {
-//   sql = `SELECT * FROM stats
-//           INNER JOIN users_leagues USING (users_leagues_id)
-//           INNER JOIN users USING (user_id)
-//           INNER JOIN matches ON matches.users_leagues_1_id = users_leagues_id OR matches.users_leagues_2_id = users_leagues_id
-//           WHERE users_leagues_id=?`;
-//   return  await queryPromise(sql, [id]);
-// }
 
 exports._get = (id) => {
   return new Promise ((resolve, reject) => {
-    sql = `SELECT * FROM stats
+    const sql = `SELECT * FROM stats
             INNER JOIN users_leagues USING (users_leagues_id)
             INNER JOIN users USING (user_id)
             INNER JOIN matches ON matches.users_leagues_1_id = users_leagues_id OR matches.users_leagues_2_id = users_leagues_id
