@@ -7,10 +7,10 @@ const opponentController = require('./controllers/opponent.controller');
 const createMatchController = require('./controllers/createMatch.controller');
 
 router
-  .get('/users/:id', userController._getUser)
-  .post('/users',userController._postUser)
-  .get('/sports', sportsController._getSports)
-  .get('/opponent/:userId/:leagueId', opponentController._getOpponent)
-  .post('/versus',createMatchController._postMatch);
+  .get('/users/:id', userController.getUser)
+  .post('/users',userController.postUser)
+  .get('/sports', sportsController.getSports)
+  .get('/opponent/:userId/:leagueId', opponentController.getOpponent)
+  .post('/versus',createMatchController.postMatch);
 
 module.exports = router;

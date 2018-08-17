@@ -1,8 +1,8 @@
 const userModel = require('../models/user.model');
 
-exports._getUser = async (ctx) => {
+exports.getUser = async (ctx) => {
   try {
-    const data = await userModel._get(ctx.params.id);
+    const data = await userModel.get(ctx.params.id);
 
     if (data.length) {
       ctx.body = data.reduce((accum, el)=> {
@@ -56,11 +56,11 @@ exports._getUser = async (ctx) => {
   }
 }
 
-exports._postUser = async (ctx) => {
+exports.postUser = async (ctx) => {
   try {
 
-    const request = await userModel._post(ctx.request.body);
-    const response = await userModel._postResponse(request.insertId)
+    const request = await userModel.post(ctx.request.body);
+    const response = await userModel.getUser(request.insertId)
 
     if(response.length){
       ctx.body = response;

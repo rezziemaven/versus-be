@@ -1,8 +1,8 @@
 const sportsModel = require('../models/sports.model');
 
-exports._getSports = async (ctx) => {
+exports.getSports = async (ctx) => {
   try {
-    const data = await sportsModel._get();
+    const data = await sportsModel.get();
     if(data.length) {
       ctx.body = data;
       ctx.status = 201;

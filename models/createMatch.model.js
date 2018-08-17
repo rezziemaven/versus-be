@@ -2,7 +2,7 @@
 
 const conn = require('../db');
 
-exports._post = () => {
+exports.post = () => {
   return new Promise ((resolve, reject) => {
     const sql = `SELECT * FROM sports`;
     conn.query(sql,(err, res) => {

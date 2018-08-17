@@ -1,8 +1,8 @@
 const createMatchModel = require('../models/createMatch.model');
 
-exports._postMatch = async (ctx) => {
+exports.postMatch = async (ctx) => {
   try {
-    const data = await createMatch._post();
+    const data = await createMatch.post();
     if(data.length) {
       ctx.body = data;
       ctx.status = 201;

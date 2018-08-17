@@ -2,7 +2,7 @@
 
 const conn = require('../db');
 
-exports._get = (userId, leagueId) => {
+exports.get = (userId, leagueId) => {
   return new Promise ((resolve, reject) => {
     const sql = `SELECT * FROM matches
                  INNER JOIN users_leagues ON users_leagues.users_leagues_id = matches.users_leagues_1_id OR users_leagues.users_leagues_id = matches.users_leagues_2_id

@@ -2,7 +2,7 @@
 
 const conn = require('../db');
 
-exports._get = (id) => {
+exports.get = (id) => {
   return new Promise ((resolve, reject) => {
     const sql = `SELECT * FROM stats
             INNER JOIN users_leagues USING (users_leagues_id)
@@ -19,7 +19,7 @@ exports._get = (id) => {
   });
 };
 
-exports._post = (user,ctx) => {
+exports.post = (user,ctx) => {
   return new Promise ((resolve, reject) => {
     conn.query('INSERT INTO users SET ?', [user] , (err, res) => {
       if (err) return resolve(err);
@@ -28,7 +28,7 @@ exports._post = (user,ctx) => {
   })
 };
 
-exports._postResponse = (id,ctx) => {
+exports.getUser = (id,ctx) => {
   return new Promise ((resolve, reject) => {
 
     conn.query('SELECT * FROM users WHERE user_id = ?', [id], (err, res) => {

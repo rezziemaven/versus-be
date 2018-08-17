@@ -1,8 +1,8 @@
 const opponentModel = require('../models/opponent.model.js')
 
-exports._getOpponent = async (ctx) => {
+exports.getOpponent = async (ctx) => {
   try {
-    const data = await opponentModel._get(ctx.params.userId, ctx.params.leagueId);
+    const data = await opponentModel.get(ctx.params.userId, ctx.params.leagueId);
     if(data.length) {
       ctx.body = data.reduce((accum, el) => {
 
