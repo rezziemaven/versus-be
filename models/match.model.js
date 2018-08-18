@@ -9,9 +9,9 @@ exports.getAll = (userId, cityName) => {
     const sql = `
     SELECT matches.match_id, a.user_id as user1_id, b.user_id as user2_id,
     matches.user1_score, matches.user2_score, matches.user1_new_elo, matches.user2_new_elo,
-    c.user_id as winner_id, d.username as username_1,
-    e.username as username_2, matches.status, a.league_id,
-    sports.sport_name FROM matches
+    matches.match_datetime, matches.location, c.user_id as winner_id,
+    d.username as username_1, e.username as username_2, matches.status,
+    a.league_id, sports.sport_name FROM matches
       INNER JOIN users_leagues a ON matches.users_leagues_1_id = a.users_leagues_id
       INNER JOIN users_leagues b ON matches.users_leagues_2_id = b.users_leagues_id
       LEFT JOIN users_leagues c ON matches.winner_id = c.users_leagues_id
@@ -32,11 +32,10 @@ exports.getOne = (matchId) => {
   return new Promise ((resolve, reject) => {
     const sql = `
     SELECT matches.match_id, a.user_id as user1_id, b.user_id as user2_id,
-    matches.user1_score, matches.user2_score, matches.user1_new_elo,
-    matches.user2_new_elo, c.user_id as winner_id,
-    d.username as username_1, e.username as username_2,
-    matches.status, a.league_id,
-    sports.sport_name FROM matches
+    matches.user1_score, matches.user2_score, matches.user1_new_elo, matches.user2_new_elo,
+    matches.match_datetime, matches.location, c.user_id as winner_id,
+    d.username as username_1, e.username as username_2, matches.status,
+    a.league_id, sports.sport_name FROM matches
       INNER JOIN users_leagues a ON matches.users_leagues_1_id = a.users_leagues_id
       INNER JOIN users_leagues b ON matches.users_leagues_2_id = b.users_leagues_id
       LEFT JOIN users_leagues c ON matches.winner_id = c.users_leagues_id
@@ -51,7 +50,7 @@ exports.getOne = (matchId) => {
       resolve(res);
     });
   });
-}
+};
 
 exports.update = (matchId, action) => {
   return new Promise ((resolve, reject) => {
@@ -59,6 +58,18 @@ exports.update = (matchId, action) => {
                   SET status = ?
                   WHERE match_id = ? LIMIT 1`;
     conn.query(sql, [action, matchId], (err, res) => {
+      if (err) reject(err);
+      resolve(res);
+    });
+  });
+};
+
+exports.updateDetails = (matchId, match) => {
+  return new Promise ((resolve, reject) => {
+    const sql = `UPDATE matches
+                  SET match_datetime = ?, location = ?
+                  WHERE match_id = ? LIMIT 1`;
+    conn.query(sql, [match.match_datetime, match.location, matchId], (err, res) => {
       if (err) reject(err);
       resolve(res);
     });

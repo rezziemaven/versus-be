@@ -22,6 +22,8 @@ exports.getMatches = async (ctx) => {
           score: match.user2_score,
           new_elo: match.user2_new_elo
         },
+        match_datetime: match.match_datetime,
+        location: match.location,
         status: match.status,
         winner_id: match.winner_id
       });
@@ -54,6 +56,8 @@ exports.getMatch = async (ctx) => {
           score: match[0].user2_score,
           new_elo: match[0].user2_new_elo
         },
+        match_datetime: match[0].match_datetime,
+        location: match[0].location,
         status: match[0].status,
         winner_id: match[0].winner_id
       };
@@ -76,6 +80,17 @@ exports.changeStatus = async (ctx, next) => {
   }
 };
 
+exports.setDetails = async (ctx, next) => {
+  try {
+    await matchModel.updateDetails(ctx.params.matchId, ctx.request.body);
+    return next();
+  }
+  catch (e) {
+    ctx.status = 400;
+    throw e;
+  }
+};
+
 exports.finishMatch = async (ctx, next) => {
   try {
     await matchModel.updateFinish(ctx.params.matchId, ctx.request.body);
@@ -86,14 +101,3 @@ exports.finishMatch = async (ctx, next) => {
     throw e;
   }
 };
-
-exports.updateWinner = async (ctx, next) => {
-  try {
-    ctx.body = await matchModel.updateWinner(ctx.params.matchId, ctx.request.body);
-    ctx.status = 200;
-  }
-  catch (e) {
-    ctx.status = 400;
-    throw e;
-  }
-}

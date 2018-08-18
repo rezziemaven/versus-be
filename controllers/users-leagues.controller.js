@@ -4,8 +4,7 @@ const ulModel = require('../models/users-leagues.model');
 
 exports.setNewElo = async (ctx, next) => {
   try {
-    const result = await ulModel.updateElo(ctx.request.body);
-    console.log(result);
+    await ulModel.updateElo(ctx.request.body);
     return next();
   }
   catch (e) {
