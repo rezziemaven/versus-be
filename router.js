@@ -10,6 +10,7 @@ router
   .get('/:cityName/leagues', leagueController._getLeagues)
   .get('/:cityName/leagues/:leagueId', leagueController._getLeague)
   .get('/users/:userId/:cityName/matches', matchController._getMatches)
-  .put('/matches/:matchId/:action', matchController._changeStatus);
+  .put('/matches/:matchId/:action', matchController._changeStatus)
+  .post('/versus',matchController.createMatch);
 
 module.exports = router;

@@ -43,3 +43,16 @@ exports._changeStatus = async (ctx) => {
     throw e;
   }
 };
+
+exports.createMatch = async (ctx) => {
+  try {
+    //ctx.body = await matchModel._update(ctx.params.matchId, (ctx.params.action+'ed').toUpperCase());
+    ctx.body = ctx.request.body
+    console.log('esisto', ctx.request.body)
+    ctx.status = 200;
+  }
+  catch (e) {
+    ctx.status = 400;
+    throw e;
+  }
+}
