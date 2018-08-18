@@ -91,7 +91,7 @@ exports.createMatch = async (ctx) => {
         },
         "match_datetime": "0000-00-00 00:00:00",
         "location": null,
-        "status": "CULO",
+        "status": "PENDING",
         "winner_id": null
       }
 
