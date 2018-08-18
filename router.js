@@ -9,7 +9,7 @@ const sportsController = require('./controllers/sports.controller');
 const opponentController = require('./controllers/opponent.controller');
 const createMatchController = require('./controllers/createMatch.controller');
 const matchController = require('./controllers/match.controller');
-const ulController = require('./controllers/users-leagues.controller');  
+const ulController = require('./controllers/users-leagues.controller');
 
 router
   .get('/users/:id', userController.getUser)

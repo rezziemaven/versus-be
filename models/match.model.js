@@ -53,6 +53,16 @@ exports.getOne = (matchId) => {
   });
 }
 
+exports.post = (match,ctx) => {
+  return new Promise ((resolve, reject) => {
+    const sql = `INSERT INTO matches SET ?`
+    conn.query(sql, [match] , (err, res) => {
+      if (err) return resolve(err);
+      resolve(res)
+    })
+  })
+};
+
 exports.update = (matchId, action) => {
   return new Promise ((resolve, reject) => {
     const sql = `UPDATE matches
