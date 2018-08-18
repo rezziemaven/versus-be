@@ -2,9 +2,9 @@
 
 const leagueModel = require('../models/league.model');
 
-exports._getLeagues = async (ctx) => {
+exports.getLeagues = async (ctx) => {
   try {
-    const leagues = await leagueModel._getAll(ctx.params.cityName);
+    const leagues = await leagueModel.getAll(ctx.params.cityName);
     const collection = await leagues.reduce((acc,league) => {
       const {league_id, sport_id, sport_name, ...rest} = league;
       if (!acc.hasOwnProperty(league.league_id)) acc[league.league_id] = [{
@@ -33,9 +33,9 @@ exports._getLeagues = async (ctx) => {
   }
 }
 
-exports._getLeague = async (ctx) => {
+exports.getLeague = async (ctx) => {
   try {
-    const league = await leagueModel._getOne(ctx.params.leagueId);
+    const league = await leagueModel.getOne(ctx.params.leagueId);
     ctx.body = await league.reduce((acc, entry) => {
       const {league_id, sport_id, name, ...rest} = entry;
       acc.users.push(rest);

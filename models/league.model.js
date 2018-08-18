@@ -2,7 +2,7 @@
 
 const conn = require('../db');
 
-exports._getAll = (cityName) => {
+exports.getAll = (cityName) => {
   return new Promise ((resolve, reject) => {
     const sql = `SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.elo_rating, users.user_image_path
     FROM leagues
@@ -19,7 +19,7 @@ exports._getAll = (cityName) => {
   });
 };
 
-exports._getOne = (leagueId) => {
+exports.getOne = (leagueId) => {
   return new Promise ((resolve, reject) => {
     const sql = `SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.elo_rating, users.user_image_path
     FROM leagues
