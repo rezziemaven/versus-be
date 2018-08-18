@@ -53,10 +53,10 @@ exports.getOne = (matchId) => {
   });
 }
 
-exports.post = (match,ctx) => {
+exports.post = (ul1,ul2,ctx) => {
   return new Promise ((resolve, reject) => {
-    const sql = `INSERT INTO matches SET ?`
-    conn.query(sql, [match] , (err, res) => {
+    const sql = `INSERT INTO matches (users_leagues_1_id, users_leagues_2_id) VALUES ( ? , ? )`
+    conn.query(sql, [ul1, ul2] , (err, res) => {
       if (err) return resolve(err);
       resolve(res)
     })

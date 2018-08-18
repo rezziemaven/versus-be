@@ -72,44 +72,36 @@ exports.createMatch = async (ctx) => {
     const leagues = await leagueModel._getOne(ctx.request.body.league_id);
     const userLeague1 = leagues.find((league) => league.user_id === ctx.request.body.user1_id);
     const userLeague2 = leagues.find((league) => league.user_id === ctx.request.body.user2_id);
+    const postMatch = await matchModel.post(userLeague1.users_leagues_id, userLeague1.users_leagues_id);
 
-    const matchObject = {
-      match_datetime:null,
-      location:null,
-      users_leagues_1_id:userLeague1.users_leagues_id,
-      users_leagues_2_id:userLeague2.users_leagues_id,
-      user1_score:0,
-      user2_score:0,
-      user1_new_elo:null,
-      user2_new_elo:null,
-      status:"PENDING",
-      winner_id:null
+    if(postMatch.hasOwnProperty('insertId')){
+      const matchResponse = {
+        "match_id": postMatch.insertId,
+        "league_id": 1,
+        "sport_name": "Tennis",
+        "user1": {
+          "user_id": ctx.request.body.user1_id,
+          "score": null,
+          "new_elo": null
+        },
+        "user2": {
+          "user_id": ctx.request.body.user2_id,
+          "score": null,
+          "new_elo": null
+        },
+        "match_datetime": "0000-00-00 00:00:00",
+        "location": null,
+        "status": "CULO",
+        "winner_id": null
+      }
+
+      ctx.body = matchResponse;
+      ctx.status = 200;
     }
-
-    const postMatch = await matchModel.post(matchObject);
-
-    const matchResponse = {
-      "match_id": postMatch.insertId,
-      "league_id": 1,
-      "sport_name": "Tennis",
-      "user1": {
-        "user_id": ctx.request.body.user1_id,
-        "score": null,
-        "new_elo": null
-      },
-      "user2": {
-        "user_id": ctx.request.body.user2_id,
-        "score": null,
-        "new_elo": null
-      },
-      "match_datetime": "0000-00-00 00:00:00",
-      "location": null,
-      "status": "PENDING",
-      "winner_id": null
+    else {
+      ctx.body = postMatch;
+      ctx.status = 400;
     }
-
-    ctx.body = matchResponse;
-    ctx.status = 200;
   }
   catch (e) {
     ctx.status = 400;
