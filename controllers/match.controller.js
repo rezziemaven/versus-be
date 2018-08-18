@@ -65,6 +65,13 @@ exports.getMatch = async (ctx) => {
   }
 };
 
+
+exports.createMatch = async (ctx) => {
+  try {
+    //ctx.body = await matchModel._update(ctx.params.matchId, (ctx.params.action+'ed').toUpperCase());
+    ctx.body = ctx.request.body
+    console.log('esisto', ctx.request.body)
+
 exports.changeStatus = async (ctx, next) => {
   try {
     await matchModel.update(ctx.params.matchId, (ctx.params.action+'ed').toUpperCase());
@@ -96,4 +103,4 @@ exports.updateWinner = async (ctx, next) => {
     ctx.status = 400;
     throw e;
   }
-}
+};

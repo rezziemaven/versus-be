@@ -18,7 +18,7 @@ router
   .get('/:cityName/leagues', leagueController._getLeagues)
   .get('/:cityName/leagues/:leagueId', leagueController._getLeague)
   .get('/opponent/:userId/:leagueId', opponentController.getOpponent)
-  .post('/versus',createMatchController.postMatch)
+  .post('/versus',matchController.createMatch)
   .get('/users/:userId/:cityName/matches', matchController.getMatches)
   .put('/matches/:matchId/:action', matchController.changeStatus, matchController.getMatch)
   .post('/matches/:matchId/:action', matchController.changeStatus, ulController.setNewElo, matchController.finishMatch, matchController.getMatch);
