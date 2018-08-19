@@ -70,8 +70,19 @@ exports.getMatch = async (ctx) => {
 };
 
 exports.changeStatus = async (ctx, next) => {
+  let status;
+  switch (ctx.params.action) {
+    case 'reject':
+      status = 'DENIED';
+      break;
+    case 'delete':
+      status = 'DELETED';
+      break;
+    default:
+      status = (ctx.params.action+'ed').toUpperCase();
+  }
   try {
-    await matchModel.update(ctx.params.matchId, (ctx.params.action+'ed').toUpperCase());
+    await matchModel.update(ctx.params.matchId, status);
     return next();
   }
   catch (e) {
