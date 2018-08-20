@@ -3,11 +3,14 @@ const opponentModel = require('../models/opponent.model.js')
 exports.getOpponent = async (ctx) => {
   try {
     const data = await opponentModel.get(ctx.params.userId, ctx.params.leagueId);
+    console.log(data);
     if(data.length) {
       ctx.body = data.reduce((accum, el) => {
 
+        let currentUser = ctx.params.userId === el.user1_id ? 1 : 2;
+
         accum.matches_history = accum.matches_history.concat({
-          score: `${el.user1_score} - ${el.user2_score}`
+          score: `${el.user1_score} - ${el.user2_score}`,
         })
 
         return accum

@@ -69,7 +69,7 @@ exports.getMatch = async (ctx) => {
 exports.createMatch = async (ctx) => {
   try {
 
-    const leagues = await leagueModel._getOne(ctx.request.body.league_id);
+    const leagues = await leagueModel.getOne(ctx.request.body.league_id);
     const userLeague1 = leagues.find((league) => league.user_id === ctx.request.body.user1_id);
     const userLeague2 = leagues.find((league) => league.user_id === ctx.request.body.user2_id);
     const postMatch = await matchModel.post(userLeague1.users_leagues_id, userLeague1.users_leagues_id);
