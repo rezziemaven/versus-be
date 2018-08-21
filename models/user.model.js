@@ -42,9 +42,18 @@ exports.post = (user,ctx) => {
   })
 };
 
-exports.getUser = (id,ctx) => {
+exports.getUser = (id) => {
   return new Promise ((resolve, reject) => {
     conn.query('SELECT * FROM users WHERE user_id = ?', [id], (err, res) => {
+      if (err) return resolve(err);
+      resolve(res)
+    })
+  })
+};
+
+exports.getUserByUsername = (username) => {
+  return new Promise ((resolve, reject) => {
+    conn.query('SELECT * FROM users WHERE username = ?', [username], (err, res) => {
       if (err) return resolve(err);
       resolve(res)
     })
