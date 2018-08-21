@@ -101,4 +101,38 @@ exports.postUser = async (ctx) => {
     ctx.status = 400;
     throw e;
   }
-}
+};
+
+exports.login = async (ctx, next) => {
+  try {
+    const auth = ctx.headers['authorization'].split('Basic ');
+    const decodedAuth = Buffer.from(auth[1], 'base64').toString('ascii').split(':');
+    const [userName, password] = decodedAuth;
+    const [user] = await User.getUserByUsername(userName);
+
+    if (user) {
+      const isValid = password === user.password ? true : false;
+
+      if (isValid) {
+        const {user_id} = user;
+        ctx.user = {user_id};
+        return next();
+      } else {
+        ctx.body = {
+          errors:[
+            'User credentials not found. Please try again.'
+          ]
+        };
+        ctx.status = 401;
+      }
+    }
+  }
+  catch (e) {
+    ctx.body = {
+      errors:[
+        'User credentials not found. Please try again.'
+      ]
+    };
+    ctx.status = 401;
+  }
+};

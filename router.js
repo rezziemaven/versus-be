@@ -15,6 +15,7 @@ const statsController = require('./controllers/stats.controller');
 router
   .get('/users/:id', userController.getUser)
   .post('/users', userController.postUser)
+  .get('/login', userController.login, userController.getUser)
   .get('/sports', sportsController.getSports)
   .get('/:cityName/leagues', leagueController.getLeagues)
   .get('/:cityName/leagues/:leagueId', leagueController.getLeague)
