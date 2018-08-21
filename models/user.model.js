@@ -19,9 +19,9 @@ exports.getUserWithMatchesAndStats = (id) => {
       INNER JOIN leagues ON a.league_id = leagues.league_id OR b.league_id = leagues.league_id
       INNER JOIN cities USING (city_id)
       INNER JOIN sports USING (sport_id)
-      WHERE d.user_id = 5 OR e.user_id = 5 AND cities.city_name = 'Barcelona'
-      ORDER BY matches.match_datetime ASC;`;
-    conn.query(sql, [id], (err, res) => {
+      WHERE d.user_id = ? OR e.user_id = ? AND cities.city_name = 'Barcelona'
+      ORDER BY matches.match_datetime ASC`;
+    conn.query(sql, [id, id], (err, res) => {
       if (err) return reject(err);
       resolve(res);
     });

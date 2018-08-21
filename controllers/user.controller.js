@@ -3,11 +3,12 @@ const User = require('../models/user.model');
 exports.getUser = async (ctx) => {
   try {
     const data = await User.getUserWithMatchesAndStats(ctx.params.id);
-    
+    console.log(data);
+
     if (data.length) {
       ctx.body = data.reduce((accum, el, index)=> {
 
-        let currentUser = ctx.params.id === el.user1_id ? 1 : 2;
+        let currentUser = ctx.params.id == el.user1_id ? 1 : 2;
 
         accum.user.user_id = el[`user${currentUser}_id`];
         accum.user.first_name = el[`first_name_${currentUser}`];
@@ -19,7 +20,7 @@ exports.getUser = async (ctx) => {
         accum.elo = [...accum.elo,{sport:el.sport_name, date:el.match_datetime, score:el[`user${currentUser}_new_elo`]}]
 
         accum.stats = {
-          ...accum.statsTest,
+          ...accum.stats,
           [el.sport_name]: {
             sport_name:el.sport_name,
             league_id:el.league_id,
