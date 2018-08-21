@@ -52,7 +52,7 @@ exports.getOne = (matchId) => {
   });
 };
 
-exports.post = (ul1,ul2,ctx) => {
+exports.post = (ul1,ul2) => {
   return new Promise ((resolve, reject) => {
     const sql = `INSERT INTO matches (users_leagues_1_id, users_leagues_2_id) VALUES ( ? , ? )`
     conn.query(sql, [ul1, ul2] , (err, res) => {
