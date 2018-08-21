@@ -20,14 +20,14 @@ exports.getAll = (cityName) => {
 exports.getOne = (leagueId) => {
   return new Promise ((resolve, reject) => {
     const sql = `
-      SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.elo_rating, users.user_image_path
+      SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.current_elo, users.user_image_path
       FROM leagues
         INNER JOIN users_leagues USING (league_id)
         INNER JOIN cities USING (city_id)
         INNER JOIN sports USING (sport_id)
         INNER JOIN users USING (user_id)
       WHERE leagues.league_id = ?
-      ORDER BY users_leagues.elo_rating DESC`;
+      ORDER BY users_leagues.current_elo DESC, users_leagues.date_joined ASC`;
     conn.query(sql, [leagueId], (err, res) => {
       if (err) reject(err);
       resolve(res);

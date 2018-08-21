@@ -17,7 +17,7 @@ exports.getLeague = async (ctx) => {
   try {
     const league = await leagueModel.getOne(ctx.params.leagueId);
     ctx.body = await league.reduce((acc, entry) => {
-      const {league_id, sport_id, name, ...rest} = entry;
+      const {league_id, sport_id, sport_name, ...rest} = entry;
       acc.users.push(rest);
       return acc;
     },{

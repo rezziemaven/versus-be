@@ -22,7 +22,7 @@ exports.insert = (user) => {
   return new Promise ((resolve, reject) => {
     const sql = `
       INSERT INTO users_leagues
-      SET ?, date_joined = CURRENT_DATE(), current_elo = ?`;
+      SET ?, date_joined = NOW(), current_elo = ?`;
     conn.query(sql, [user, user.initial_elo], (err, res) => {
       if (err) reject(err);
       resolve(res);
