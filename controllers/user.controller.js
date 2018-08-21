@@ -3,13 +3,11 @@ const User = require('../models/user.model');
 exports.getUser = async (ctx) => {
   try {
     const data = await User.getUserWithMatchesAndStats(ctx.params.id);
-    console.log(data);
-
     if (data.length) {
       ctx.body = data.reduce((accum, el, index)=> {
 
         let currentUser = ctx.params.id == el.user1_id ? 1 : 2;
-        
+
         accum.user.user_id = el[`user${currentUser}_id`];
         accum.user.first_name = el[`first_name_${currentUser}`];
         accum.user.last_name = el[`last_name_${currentUser}`];
