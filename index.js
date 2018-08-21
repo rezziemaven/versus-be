@@ -1,3 +1,5 @@
+'use strict';
+
 require('dotenv').config();
 const logger = require('koa-logger');
 const Koa = require('koa');
@@ -18,4 +20,4 @@ app
 
  app.listen(port, () => {
   console.log(`Server running on port ${port}`);
- })
+ });

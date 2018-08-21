@@ -8,7 +8,6 @@ exports.join = async (ctx) => {
     const { insertId } = await ulModel.insert(ctx.request.body);
     await statsModel.insert({users_leagues_id: insertId});
     const [result] = await ulModel.getOne(insertId);
-    console.log(result);
     ctx.body = {
       user_id: result.user_id,
       league_id: result.league_id,

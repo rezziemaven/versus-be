@@ -10,6 +10,7 @@ const opponentController = require('./controllers/opponent.controller');
 const createMatchController = require('./controllers/createMatch.controller');
 const matchController = require('./controllers/match.controller');
 const ulController = require('./controllers/users-leagues.controller');
+const statsController = require('./controllers/stats.controller');
 
 router
   .get('/users/:id', userController.getUser)
@@ -19,9 +20,10 @@ router
   .get('/:cityName/leagues/:leagueId', leagueController.getLeague)
   .post('/:cityName/leagues/:leagueId/join', ulController.join)
   .get('/opponent/:userId/:leagueId', opponentController.getOpponent)
-  // .post('/versus', matchController.createMatch)
+   //.post('/versus', matchController.createMatch)
   .get('/users/:userId/:cityName/matches', matchController.getMatches)
+  .post('/matches/:matchId/set', matchController.setDetails, matchController.getMatch)
   .put('/matches/:matchId/:action', matchController.changeStatus, matchController.getMatch)
-  .post('/matches/:matchId/:action', matchController.changeStatus, ulController.setNewElo, matchController.finishMatch, matchController.getMatch);
+  .post('/matches/:matchId/:action', matchController.changeStatus, ulController.setNewElo, statsController.updateStats, matchController.finishMatch, matchController.getMatch);
 
 module.exports = router;
