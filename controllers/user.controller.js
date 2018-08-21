@@ -2,13 +2,12 @@ const User = require('../models/user.model');
 
 exports.getUser = async (ctx) => {
   try {
-    const data = await User.getUserWithMatchesAndStats(ctx.params.id);
-    console.log(data);
-
+    const id = ctx.params.id ? ctx.params.id : ctx.user.user_id;
+    const data =  await User.getUserWithMatchesAndStats(id);
     if (data.length) {
       ctx.body = data.reduce((accum, el, index)=> {
 
-        let currentUser = ctx.params.id == el.user1_id ? 1 : 2;
+        let currentUser = id == el.user1_id ? 1 : 2;
 
         accum.user.user_id = el[`user${currentUser}_id`];
         accum.user.first_name = el[`first_name_${currentUser}`];
@@ -16,7 +15,6 @@ exports.getUser = async (ctx) => {
         accum.user.username = el[`username_${currentUser}`];
         accum.user.email = el[`email_${currentUser}`];
         accum.user.image_path = el[`user_image_path_${currentUser}`];
-
         accum.elo = [...accum.elo,{sport:el.sport_name, date:el.match_datetime, score:el[`user${currentUser}_new_elo`]}]
 
         accum.stats = {
@@ -87,7 +85,6 @@ exports.getUser = async (ctx) => {
 
 exports.postUser = async (ctx) => {
   try {
-
     const request = await User.post(ctx.request.body);
     const response = await User.getUser(request.insertId)
 
