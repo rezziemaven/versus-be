@@ -23,6 +23,8 @@ exports.getMatches = async (ctx) => {
           score: match.user2_score,
           new_elo: match.user2_new_elo
         },
+        match_datetime: match.match_datetime,
+        location: match.location,
         status: match.status,
         winner_id: match.winner_id
       });
@@ -38,25 +40,27 @@ exports.getMatches = async (ctx) => {
 
 exports.getMatch = async (ctx) => {
   try {
-    const match = await matchModel.getOne(ctx.params.matchId);
+    const [match] = await matchModel.getOne(ctx.params.matchId);
     ctx.body = {
-        match_id: match[0].match_id,
-        league_id: match[0].league_id,
-        sport_name: match[0].sport_name,
+        match_id: match.match_id,
+        league_id: match.league_id,
+        sport_name: match.sport_name,
         user1: {
-          user_id: match[0].user1_id,
-          username: match[0].username_1,
-          score: match[0].user1_score,
-          new_elo: match[0].user1_new_elo
+          user_id: match.user1_id,
+          username: match.username_1,
+          score: match.user1_score,
+          new_elo: match.user1_new_elo
         },
         user2: {
-          user_id: match[0].user2_id,
-          username: match[0].username_2,
-          score: match[0].user2_score,
-          new_elo: match[0].user2_new_elo
+          user_id: match.user2_id,
+          username: match.username_2,
+          score: match.user2_score,
+          new_elo: match.user2_new_elo
         },
-        status: match[0].status,
-        winner_id: match[0].winner_id
+        match_datetime: match.match_datetime,
+        location: match.location,
+        status: match.status,
+        winner_id: match.winner_id
       };
     ctx.status = 200;
   }
@@ -110,8 +114,30 @@ exports.createMatch = async (ctx) => {
 }
 
 exports.changeStatus = async (ctx, next) => {
+  let status;
+  switch (ctx.params.action) {
+    case 'reject':
+      status = 'DENIED';
+      break;
+    case 'delete':
+      status = 'DELETED';
+      break;
+    default:
+      status = (ctx.params.action+'ed').toUpperCase();
+  }
   try {
-    await matchModel.update(ctx.params.matchId, (ctx.params.action+'ed').toUpperCase());
+    await matchModel.update(ctx.params.matchId, status);
+    return next();
+  }
+  catch (e) {
+    ctx.status = 400;
+    throw e;
+  }
+};
+
+exports.setDetails = async (ctx, next) => {
+  try {
+    await matchModel.updateDetails(ctx.params.matchId, ctx.request.body);
     return next();
   }
   catch (e) {
@@ -124,17 +150,6 @@ exports.finishMatch = async (ctx, next) => {
   try {
     await matchModel.updateFinish(ctx.params.matchId, ctx.request.body);
     return next();
-  }
-  catch (e) {
-    ctx.status = 400;
-    throw e;
-  }
-};
-
-exports.updateWinner = async (ctx, next) => {
-  try {
-    ctx.body = await matchModel.updateWinner(ctx.params.matchId, ctx.request.body);
-    ctx.status = 200;
   }
   catch (e) {
     ctx.status = 400;
