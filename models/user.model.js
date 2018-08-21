@@ -24,7 +24,7 @@ exports.getUserWithMatchesAndStats = (id) => {
         INNER JOIN sports USING (sport_id)
         INNER JOIN users d ON a.user_id = d.user_id
         LEFT JOIN users e ON b.user_id = e.user_id
-      WHERE a.user_id = 3
+      WHERE a.user_id = ?
       ORDER BY matches.match_datetime ASC;`;
     conn.query(sql, [id, id], (err, res) => {
       if (err) return reject(err);

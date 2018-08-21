@@ -74,7 +74,20 @@ exports.getUser = async (ctx) => {
       ctx.status = 200;
     }
     else {
-      ctx.status = 404;
+      const [result] = await User.getUser(id);
+
+      delete result.password;
+      if (result) {
+        ctx.body = result;
+        ctx.status = 200;
+      } else {
+        ctx.body = {
+          errors:[
+            'User credentials not found. Please try again.'
+          ]};
+        ctx.status = 401;
+      }
+
     }
   }
   catch (e) {
@@ -86,9 +99,10 @@ exports.getUser = async (ctx) => {
 exports.postUser = async (ctx) => {
   try {
     const request = await User.post(ctx.request.body);
-    const response = await User.getUser(request.insertId)
+    const [response] = await User.getUser(request.insertId)
+    ctx.user = {user_id: request.insertId};
 
-    if(response.length){
+    if(response){
       ctx.body = response;
       ctx.status = 200;
     }
