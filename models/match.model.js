@@ -52,6 +52,16 @@ exports.getOne = (matchId) => {
   });
 };
 
+exports.post = (ul1,ul2,ctx) => {
+  return new Promise ((resolve, reject) => {
+    const sql = `INSERT INTO matches (users_leagues_1_id, users_leagues_2_id) VALUES ( ? , ? )`
+    conn.query(sql, [ul1, ul2] , (err, res) => {
+      if (err) return resolve(err);
+      resolve(res)
+    })
+  })
+};
+
 exports.update = (matchId, action) => {
   return new Promise ((resolve, reject) => {
     const sql = `UPDATE matches
