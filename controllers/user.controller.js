@@ -99,10 +99,11 @@ exports.getUser = async (ctx) => {
 exports.postUser = async (ctx) => {
   try {
     const request = await User.post(ctx.request.body);
-    const [response] = await User.getUser(request.insertId)
+    const [response] = await User.getUser(request.insertId);
     ctx.user = {user_id: request.insertId};
 
     if(response){
+      delete response.password;
       ctx.body = response;
       ctx.status = 200;
     }
