@@ -13,14 +13,16 @@ exports.join = async (ctx) => {
       league_id: result.league_id,
       sport_name: result.sport_name,
       data: {
-        score: result.current_elo,
+        current_elo: result.current_elo,
         matches_played: result.matches_played,
+        matches_won: result.matches_won,
         matches_lost: result.matches_lost,
-        matches_drawn: result.matches_drawn
-      },
-      elo_history: [
+        matches_drawn: result.matches_drawn,
+        elo_history: [
         {date: result.date_joined, score: result.initial_elo}
       ]
+      },
+
     }
     ctx.status = 201;
   }
