@@ -20,7 +20,7 @@ exports.getAll = (cityName) => {
 exports.getOne = (leagueId) => {
   return new Promise ((resolve, reject) => {
     const sql = `
-      SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.current_elo, users.user_image_path
+      SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.current_elo, users.user_image_path, users_leagues.users_leagues_id
       FROM leagues
         INNER JOIN users_leagues USING (league_id)
         INNER JOIN cities USING (city_id)
