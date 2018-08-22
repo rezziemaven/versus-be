@@ -18,9 +18,9 @@ exports.getUser = async (ctx) => {
         accum.user.image_path = el[`user_image_path_${currentUser}`];
         accum.elo = [...accum.elo,{sport:el.sport_name, date:el.match_datetime, score:el[`user${currentUser}_new_elo`]}]
 
-        accum.stats = {
+        accum.stats = [
           ...accum.stats,
-          [el.sport_name]: {
+          {
             sport_name:el.sport_name,
             league_id:el.league_id,
             data: {
@@ -32,7 +32,7 @@ exports.getUser = async (ctx) => {
               elo_history:accum.elo.filter((element) => element.sport === el.sport_name)
             }
           }
-        }
+        ];
 
         accum.matches = accum.matches.concat({
           match_id: el.match_id,
@@ -66,7 +66,7 @@ exports.getUser = async (ctx) => {
           city_name: data[0].city_name,
           image_path: data[0].image_path
         },
-        stats: {},
+        stats: [],
         matches: [],
         elo:[]
       })
