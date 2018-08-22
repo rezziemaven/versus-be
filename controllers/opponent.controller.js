@@ -3,10 +3,8 @@ const opponentModel = require('../models/opponent.model.js')
 exports.getOpponent = async (ctx) => {
   try {
     const data = await opponentModel.get(ctx.params.userId, ctx.params.leagueId);
-    console.log(data);
     if(data.length) {
       ctx.body = data.reduce((accum, el) => {
-
         const currentUser = ctx.params.userId == el.user1_id ? 1 : 2;
         const resultMatch = el[`user${currentUser}_id`] == el.winner_id ? "WON" : "LOST";
 
@@ -21,8 +19,7 @@ exports.getOpponent = async (ctx) => {
             elo:el[`user${currentUser}_new_elo`]
           })
         }
-
-        return accum
+        return accum;
       },{
         user_id:data[0].user_id,
         username:data[0].username,
@@ -44,4 +41,4 @@ exports.getOpponent = async (ctx) => {
     ctx.status = 400;
     throw e;
   }
-}
+};
