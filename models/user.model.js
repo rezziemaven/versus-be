@@ -26,14 +26,15 @@ exports.getUserWithMatchesAndStats = (id) => {
         LEFT JOIN users e ON b.user_id = e.user_id
       WHERE a.user_id = ?
       ORDER BY matches.match_datetime ASC;`;
-    conn.query(sql, [id, id], (err, res) => {
+    
+    conn.query(sql, [id], (err, res) => {
       if (err) return reject(err);
       resolve(res);
     });
   });
 };
 
-exports.post = (user,ctx) => {
+exports.post = (user) => {
   return new Promise ((resolve, reject) => {
     conn.query('INSERT INTO users SET ?', [user] , (err, res) => {
       if (err) return resolve(err);

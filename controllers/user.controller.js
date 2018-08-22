@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 
 exports.getUser = async (ctx) => {
   try {
+
     const id = ctx.params.id ? ctx.params.id : ctx.user.user_id;
     const data =  await User.getUserWithMatchesAndStats(id);
     if (data.length) {
