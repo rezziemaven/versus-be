@@ -14,7 +14,7 @@ exports.getOpponent = async (ctx) => {
         accum.username = el[`username_${currentUser}`];
         accum.image_path = el[`user_image_path_${currentUser}`];
 
-        if (el.matches_played) {
+        if (el.matches_played && el.status === 'FINISHED') {
           accum.match_history = accum.match_history.concat({
             result: resultMatch,
             score: `${el.user1_score} - ${el.user2_score}`,
