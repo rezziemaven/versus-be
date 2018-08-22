@@ -2,7 +2,6 @@ const User = require('../models/user.model');
 
 exports.getUser = async (ctx) => {
   try {
-
     const id = ctx.params.id ? ctx.params.id : ctx.user.user_id;
     const data =  await User.getUserWithMatchesAndStats(id);
     if (data.length) {
@@ -18,21 +17,31 @@ exports.getUser = async (ctx) => {
         accum.user.image_path = el[`user_image_path_${currentUser}`];
         accum.elo = [...accum.elo,{sport:el.sport_name, date:el.match_datetime, score:el[`user${currentUser}_new_elo`]}]
 
-        accum.stats = [
-          ...accum.stats,
-          {
-            sport_name:el.sport_name,
-            league_id:el.league_id,
-            data: {
-              current_elo:el.current_elo,
-              matches_played: el.matches_played,
-              matches_won: el.matches_won,
-              matches_lost: el.matches_lost,
-              matches_drawn:el.matches_drawn,
-              elo_history:accum.elo.filter((element) => element.sport === el.sport_name)
+        if (accum.stats.find((stat) => stat.league_id === el.league_id)) {
+          const replace = accum.stats.find((stat) => stat.league_id === el.league_id);
+          const index = accum.stats.indexOf(replace);
+          accum.stats[index] = {
+            ...replace,
+            elo_history:accum.elo.filter((element) => element.sport === el.sport_name)
+          };
+        }
+        else {
+          accum.stats.push(
+            {
+              sport_name:el.sport_name,
+              league_id:el.league_id,
+              data: {
+                current_elo:el.current_elo,
+                matches_played: el.matches_played,
+                matches_won: el.matches_won,
+                matches_lost: el.matches_lost,
+                matches_drawn:el.matches_drawn,
+                elo_history:accum.elo.filter((element) => element.sport === el.sport_name)
+              }
             }
-          }
-        ];
+          );
+        }
+
 
         accum.matches = accum.matches.concat({
           match_id: el.match_id,
