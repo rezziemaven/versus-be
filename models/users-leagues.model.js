@@ -18,6 +18,19 @@ exports.getOne = (id) => {
   });
 }
 
+exports.getElo = (userId, leagueId) => {
+  return new Promise ((resolve, reject) => {
+    const sql = `
+      SELECT current_elo
+      FROM users_leagues
+      WHERE user_id = ? AND league_id = ?`;
+    conn.query(sql, [userId,leagueId], (err, res) => {
+      if (err) reject(err);
+      resolve(res);
+    });
+  });
+}
+
 exports.insert = (user) => {
   return new Promise ((resolve, reject) => {
     const sql = `

@@ -59,6 +59,8 @@ exports.getUser = async (ctx) => {
             image_path:el.user_image_path_2,
             score:el.user2_score
           },
+          match_datetime:el.match_datetime,
+          location:el.location,
           status:el.status,
           winner_id:el.winner_id
         })

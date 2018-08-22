@@ -34,7 +34,12 @@ exports.join = async (ctx) => {
 
 exports.setNewElo = async (ctx, next) => {
   try {
-    await ulModel.updateElo(ctx.request.body);
+    const body = ctx.request.body;
+    const [user1OldElo] = await ulModel.getElo(body.user1.user_id,body.league_id);
+    const [user2OldElo] = await ulModel.getElo(body.user2.user_id,body.league_id);
+    ctx.request.body.user1.old_elo = user1OldElo.current_elo;
+    ctx.request.body.user2.old_elo = user2OldElo.current_elo;
+    const result = await ulModel.updateElo(ctx.request.body);
     return next();
   }
   catch (e) {
