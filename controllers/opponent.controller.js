@@ -3,17 +3,24 @@ const opponentModel = require('../models/opponent.model.js')
 exports.getOpponent = async (ctx) => {
   try {
     const data = await opponentModel.get(ctx.params.userId, ctx.params.leagueId);
+    console.log(data);
     if(data.length) {
       ctx.body = data.reduce((accum, el) => {
 
-        const currentUser = el.users_leagues_id === el.users_leagues_1_id ? 1 : 2;
-        const resultMatch = el.users_leagues_id === el.winner_id ? "WON" : "LOST";
+        const currentUser = ctx.params.userId == el.user1_id ? 1 : 2;
+        const resultMatch = el[`user${currentUser}_id`] == el.winner_id ? "WON" : "LOST";
 
-        accum.match_history = accum.match_history.concat({
-          result: resultMatch,
-          score: `${el.user1_score} - ${el.user2_score}`,
-          elo:el[`user${currentUser}_new_elo`]
-        })
+        accum.user_id = el[`user${currentUser}_id`];
+        accum.username = el[`username_${currentUser}`];
+        accum.image_path = el[`user_image_path_${currentUser}`];
+
+        if (el.matches_played) {
+          accum.match_history = accum.match_history.concat({
+            result: resultMatch,
+            score: `${el.user1_score} - ${el.user2_score}`,
+            elo:el[`user${currentUser}_new_elo`]
+          })
+        }
 
         return accum
       },{
@@ -29,6 +36,7 @@ exports.getOpponent = async (ctx) => {
       ctx.status = 201;
     }
     else {
+      ctx.body = {error:"No user or league"};
       ctx.status = 400;
     }
   }
