@@ -2,11 +2,13 @@ const User = require('../models/user.model');
 
 exports.getUser = async (ctx) => {
   try {
-    const data = await User.getUserWithMatchesAndStats(ctx.params.id);
+
+    const id = ctx.params.id ? ctx.params.id : ctx.user.user_id;
+    const data =  await User.getUserWithMatchesAndStats(id);
     if (data.length) {
       ctx.body = data.reduce((accum, el, index)=> {
 
-        let currentUser = ctx.params.id == el.user1_id ? 1 : 2;
+        let currentUser = id == el.user1_id ? 1 : 2;
 
         accum.user.user_id = el[`user${currentUser}_id`];
         accum.user.first_name = el[`first_name_${currentUser}`];
@@ -14,7 +16,6 @@ exports.getUser = async (ctx) => {
         accum.user.username = el[`username_${currentUser}`];
         accum.user.email = el[`email_${currentUser}`];
         accum.user.image_path = el[`user_image_path_${currentUser}`];
-
         accum.elo = [...accum.elo,{sport:el.sport_name, date:el.match_datetime, score:el[`user${currentUser}_new_elo`]}]
 
         accum.stats = {
@@ -74,7 +75,20 @@ exports.getUser = async (ctx) => {
       ctx.status = 200;
     }
     else {
-      ctx.status = 404;
+      const [result] = await User.getUser(id);
+
+      delete result.password;
+      if (result) {
+        ctx.body = result;
+        ctx.status = 200;
+      } else {
+        ctx.body = {
+          errors:[
+            'User credentials not found. Please try again.'
+          ]};
+        ctx.status = 401;
+      }
+
     }
   }
   catch (e) {
@@ -85,11 +99,12 @@ exports.getUser = async (ctx) => {
 
 exports.postUser = async (ctx) => {
   try {
-
     const request = await User.post(ctx.request.body);
-    const response = await User.getUser(request.insertId)
+    const [response] = await User.getUser(request.insertId);
+    ctx.user = {user_id: request.insertId};
 
-    if(response.length){
+    if(response){
+      delete response.password;
       ctx.body = response;
       ctx.status = 200;
     }
@@ -102,4 +117,38 @@ exports.postUser = async (ctx) => {
     ctx.status = 400;
     throw e;
   }
-}
+};
+
+exports.login = async (ctx, next) => {
+  try {
+    const auth = ctx.headers['authorization'].split('Basic ');
+    const decodedAuth = Buffer.from(auth[1], 'base64').toString('ascii').split(':');
+    const [userName, password] = decodedAuth;
+    const [user] = await User.getUserByUsername(userName);
+
+    if (user) {
+      const isValid = password === user.password ? true : false;
+
+      if (isValid) {
+        const {user_id} = user;
+        ctx.user = {user_id};
+        return next();
+      } else {
+        ctx.body = {
+          errors:[
+            'User credentials not found. Please try again.'
+          ]
+        };
+        ctx.status = 401;
+      }
+    }
+  }
+  catch (e) {
+    ctx.body = {
+      errors:[
+        'User credentials not found. Please try again.'
+      ]
+    };
+    ctx.status = 401;
+  }
+};
