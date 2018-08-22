@@ -78,11 +78,13 @@ exports.createMatch = async (ctx) => {
     const userLeague2 = leagues.find((league) => league.user_id === ctx.request.body.user2_id);
     const postMatch = await matchModel.post(userLeague1.users_leagues_id, userLeague2.users_leagues_id);
 
+    console.log('sono league',leagues);
+
     if(postMatch.hasOwnProperty('insertId')){
       const matchResponse = {
         "match_id": postMatch.insertId,
-        "league_id": 1,
-        "sport_name": "Tennis",
+        "league_id": userLeague1.league_id,
+        "sport_name": userLeague1.sport_name,
         "user1": {
           "user_id": ctx.request.body.user1_id,
           "score": null,
