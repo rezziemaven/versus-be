@@ -8,7 +8,7 @@ exports.getUser = async (ctx) => {
     if (data.length) {
       ctx.body = data.reduce((accum, el, index)=> {
 
-        let currentUser = id == el.user1_id ? 1 : 2;
+        const currentUser = id == el.user1_id ? 1 : 2;
 
         accum.user.user_id = el[`user${currentUser}_id`];
         accum.user.first_name = el[`first_name_${currentUser}`];
