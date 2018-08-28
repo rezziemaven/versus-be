@@ -78,7 +78,7 @@ exports.getUser = async (ctx) => {
           image_path: data[0].image_path
         },
         stats: [],
-        matches: [],
+        matches: [{match_id: 0, score: 0}],
         elo:[]
       })
 
@@ -90,7 +90,21 @@ exports.getUser = async (ctx) => {
 
       delete result.password;
       if (result) {
-        ctx.body = result;
+        ctx.body = {
+        user: {
+          user_id: result.user_id,
+          first_name: result.first_name,
+          last_name:  result.last_name,
+          total_score:0,
+          username: result.username,
+          email: result.email,
+          city_name: result.city_name,
+          image_path: result.user_image_path
+        },
+        stats: [],
+        matches: [],
+        elo:[]
+      };
         ctx.status = 200;
       } else {
         ctx.body = {

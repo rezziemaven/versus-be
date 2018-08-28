@@ -21,7 +21,7 @@ router
   .get('/:cityName/leagues/:leagueId', leagueController.getLeague)
   .post('/:cityName/leagues/:leagueId/join', ulController.join)
   .get('/opponent/:leagueId/:userId', opponentController.getOpponent)
-  .post('/versus', matchController.createMatch)
+  .post('/versus', matchController.createMatch,matchController.getMatch)
   .get('/users/:userId/:cityName/matches', matchController.getMatches)
   .post(
     '/matches/:matchId/set',

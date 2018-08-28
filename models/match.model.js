@@ -34,7 +34,7 @@ exports.getOne = (matchId) => {
     SELECT matches.match_id, a.user_id as user1_id, b.user_id as user2_id,
     matches.user1_score, matches.user2_score, matches.user1_new_elo, matches.user2_new_elo,
     matches.match_datetime, matches.location, c.user_id as winner_id,
-    d.username as username_1, e.username as username_2, matches.status,
+    d.username as username_1, d.user_image_path as user1_image_path, e.username as username_2, e.user_image_path as user2_image_path, matches.status,
     a.league_id, sports.sport_name FROM matches
       INNER JOIN users_leagues a ON matches.users_leagues_1_id = a.users_leagues_id
       INNER JOIN users_leagues b ON matches.users_leagues_2_id = b.users_leagues_id
