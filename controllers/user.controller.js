@@ -78,7 +78,7 @@ exports.getUser = async (ctx) => {
           image_path: data[0].image_path
         },
         stats: [],
-        matches: [],
+        matches: [{match_id: 0, score: 0}],
         elo:[]
       })
 
