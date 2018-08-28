@@ -9,7 +9,7 @@ exports.getUserWithMatchesAndStats = (id) => {
             b.user_id as user2_id,
             a.current_elo, matches.match_datetime, matches.location,
             matches.user1_score, matches.user2_score, matches.user1_new_elo, matches.user2_new_elo,
-            c.user_id as winner_id, d.username as username_1,
+            c.user_id as winner_id, d.username as username_1, e.username as username_2,
             d.first_name as first_name_1, d.last_name as last_name_1, d.email as email_1, d.user_image_path as user_image_path_1,
             e.first_name as first_name_2, e.last_name as last_name_2, e.email as email_2, e.user_image_path as user_image_path_2,
             matches.status, a.league_id, sports.sport_name, stats.matches_played, stats.matches_won, stats.matches_lost,
