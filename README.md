@@ -46,7 +46,7 @@ This project is the **backend** for the platform.
 
 ## API Documentation
 
-- [Postman Collection](./docs/Versus.postman_collection)
+- [Postman Collection](./docs/Versus.postman_collection.json)
 - [Apiary](https://versus3.docs.apiary.io/) (Available until Oct 31st 2026, as Apiary is being put to end of life)
 
 ## Future Improvements
