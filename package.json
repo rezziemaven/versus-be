@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
+    "import-dump": "node db/import.js dump",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
