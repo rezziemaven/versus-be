@@ -1,0 +1,842 @@
+FORMAT: 1A
+HOST: http://private-1cf21-versus3.apiary-mock.com
+
+# Versus
+
+Api for versus application.
+
+MAKE REQ: http://private-1cf21-versus3.apiary-mock.com
+
+## Users Collection  [/users/{id}]
+
+### Get user [GET]
+
+This is to get one user
+
++ Response 200 (application/json)
+
+        
+            {
+                "user": {
+                    "user_id":1,
+                    "first_name":"Stefano",
+                    "last_name": "Russo",
+                    "total_score": 1226,
+                    "username":"versus",
+                    "email":"versus@versus.it",
+                    "city_name":"Barcelona",
+                    "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg",
+                    "elo_history": [
+                          { "date": 1, "score": 1000 },
+                          { "date": 2, "score": 950 },
+                          { "date": 3, "score": 975 },
+                          { "date": 4, "score": 1000 },
+                          { "date": 5, "score": 1100 },
+                          { "date": 6, "score": 1150 },
+                          { "date": 7, "score": 1200 },
+                          { "date": 8, "score": 1350 }
+                          ]
+                },
+                "stats":[{
+                    "sport_name":"Tennis",
+                    "league_id": 1,
+                    "data":{
+                        "current_elo":1000,
+                        "matches_played":25,
+                        "matches_won":20,
+                        "matches_lost":5
+                        },
+                    "elo_history": [
+                          { "date": 1, "score": 400 },
+                          { "date": 2, "score": 550 },
+                          { "date": 3, "score": 805 },
+                          { "date": 4, "score": 950 },
+                          { "date": 5, "score": 800 },
+                          { "date": 6, "score": 700 },
+                          { "date": 7, "score": 750 },
+                          { "date": 8, "score": 800 }
+                          ]
+                    },
+                    {
+                    "sport_name":"Ping Pong",
+                    "league_id": 2,
+                    "data":{
+                        "current_elo":1200,
+                        "matches_played":10,
+                        "matches_won":3,
+                        "matches_lost":7
+                        },
+                    "elo_history": [
+                        { "date": 1, "score": 1200 },
+                        { "date": 2, "score": 1400 },
+                        { "date": 3, "score": 1350 },
+                        { "date": 4, "score": 1200 },
+                        { "date": 5, "score": 1150 },
+                        { "date": 6, "score": 1000 },
+                        { "date": 7, "score": 1400 },
+                        { "date": 8, "score": 1450 }
+                        ]
+                    },
+                    {
+                    "sport_name":"Tic Tac Toe",
+                    "league_id": 3,
+                    "data":{
+                        "current_elo":2100,
+                        "matches_played":25,
+                        "matches_won":23,
+                        "matches_lost":2
+                        },
+                    "elo_history": [
+                        { "date": 1, "score": 600 },
+                        { "date": 2, "score": 700 },
+                        { "date": 3, "score": 650 },
+                        { "date": 4, "score": 600 },
+                        { "date": 5, "score": 700 },
+                        { "date": 6, "score": 750 },
+                        { "date": 7, "score": 800 },
+                        { "date": 8, "score": 750 }
+                        ]
+                    },
+                    {
+                    "sport_name":"Chess",
+                    "league_id": 6,
+                    "data":{
+                        "current_elo":1300,
+                        "matches_played":20,
+                        "matches_won":13,
+                        "matches_lost":7
+                        },
+                    "elo_history": [
+                        { "date": 1, "score": 1100 },
+                        { "date": 2, "score": 1300 },
+                        { "date": 3, "score": 900 },
+                        { "date": 4, "score": 800 },
+                        { "date": 5, "score": 720 },
+                        { "date": 6, "score": 630 },
+                        { "date": 7, "score": 530 },
+                        { "date": 8, "score": 940 }
+                        ]
+                    }
+                ],
+                
+                "matches": [
+                    {
+                        "match_id":1,
+                        "sport_name":"Tennis", 
+                        "league_id":1,
+                        "user1":{
+                            "user_id":1,
+                            "username":"versus",
+                            "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg",
+                            "score":null
+                        },
+                         "user2":{
+                            "user_id":2,
+                            "username":"polo",
+                            "image_path":"https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTAxOTk4NjA3/marco-polo-9443861-1-402.jpg",
+                            "score":null
+                        },
+                        "status":"PENDING",
+                        "winner_id":null
+                    },
+                    {
+                        "match_id":2,
+                        "sport_name":"PingPong", 
+                        "league_id":1,
+                        "user1":{
+                            "user_id":1,
+                            "username":"versus",
+                            "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg",
+                            "score":null
+                        },
+                        "user2":{
+                            "user_id":3,
+                            "username":"pippo",
+                            "image_path":"https://vignette.wikia.nocookie.net/waltdisney/images/6/6c/Pippo.png/revision/latest?cb=20130201181007&path-prefix=it",
+                            "score":null
+                        },
+                        "status":"DENIED",
+                        "winner_id":null
+                    },
+                    {
+                        "match_id":3,
+                        "sport_name":"Unicycle", 
+                        "league_id":1,
+                        "user1":{
+                            "user_id":1,
+                            "username":"versus",
+                            "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg",
+                            "score":null
+                        },
+                        "user2":{
+                            "user_id":4,
+                            "username":"minnie",
+                            "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg",
+                            "score":null
+                        },
+                        "status":"ACCEPTED",
+                        "winner_id":null
+                    },
+                    {
+                        "match_id":4,
+                        "sport_name":"Hockey", 
+                        "league_id":1,
+                        "user1":{
+                            "user_id":1,
+                            "username":"versus",
+                            "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg",
+                            "score":3
+                        },
+                        "user2":{
+                            "user_id":5,
+                            "username":"nadal",
+                            "image_path":"http://cdn.24.co.za/files/Cms/General/d/6573/e557cac7c773490aa5029431fd55c86a.jpg",
+                            "score":1
+                        },
+                        "status":"FINISHED",
+                        "winner_id":5
+                    },
+                    {
+                        "match_id":5,
+                        "sport_name":"Juggling", 
+                        "league_id":1,
+                        "user1":{
+                            "user_id":3,
+                            "username":"federerer",
+                            "image_path":"https://timesofindia.indiatimes.com/thumb/msid-65460092,imgsize-574578,width-400,resizemode-4/65460092.jpg",
+                            "score":null
+                        },
+                        "user2":{
+                            "user_id":1,
+                            "username":"versus",
+                            "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg",
+                            "score":null
+                        },
+                        "status":"PENDING",
+                        "winner_id":null
+                    }
+                ]
+            }
+        
+
+### Create user [POST]
+
+This is to post a new user
+
++ Request (application/json)
+
+        {
+            "first_name":"Marco",
+            "last_name":"Polo",
+            "username":"polo",
+            "password":"password",
+            "email":"marco@polo.com"
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "user_id":2,
+                "first_name":"Marco",
+                "last_name":"Polo",
+                "username":"polo",
+                "email":"marco@polo.com",
+                "user_image_path":NULL
+            }
+
+## Sports  [/barcelona/leagues]
+
+### List sports [GET]
+
+This is to get list of sports.
+
++ Response 200 (application/json)
+
+        [
+            {
+              "sport_id":1,
+              "league_id":1,
+              "sport_name":"Tennis",
+              "image_path":"https://images.unsplash.com/photo-1485908953667-cf6d88997642?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dcc6a29fb8bc02fa69b8a6c1ddb7b7d2&auto=format&fit=crop&w=1920&q=80"
+            },
+            {
+              "sport_id":2,
+              "league_id":2,
+              "sport_name":"Ping Pong",
+              "image_path":"https://target.scene7.com/is/image/Target/51444339?wid=488&hei=488&fmt=pjpeg"
+            },
+            {
+              "sport_id":3,
+              "league_id":3,
+              "sport_name":"Tic Tac Toe",
+              "image_path":"https://previews.123rf.com/images/anikasalsera/anikasalsera0809/anikasalsera080900020/3526260-hand-drawn-tic-tac-toe-game-isolated-on-white-.jpg"
+            },
+            {
+              "sport_id":4,
+              "league_id":4,
+              "sport_name":"Golf",
+              "image_path":"https://www.wttr.com/wp-content/uploads/2018/06/golf_tournament.jpg"
+            },
+            {
+              "sport_id":5,
+              "league_id":5,
+              "sport_name":"Boxing",
+              "image_path":"https://images.unsplash.com/photo-1495555687398-3f50d6e79e1e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f5bd26422b6425d05274c92a51e1e16d&auto=format&fit=crop&w=1050&q=80"
+            },
+            {
+              "sport_id":6,
+              "league_id":6,
+              "sport_name":"Chess",
+              "image_path":"https://images.unsplash.com/photo-1523875194681-bedd468c58bf?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89f7259907bafccabeab5ed40f4c9e84&auto=format&fit=crop&w=1051&q=80"
+            },
+            {
+              "sport_id":7,
+              "league_id":7,
+              "sport_name":"Billiards",
+              "image_path":"https://images.unsplash.com/photo-1488923566472-4b2d13a4af3b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=075c0f42b882962e88076e264343f2d2&auto=format&fit=crop&w=1050&q=80"
+            }
+        ]
+        
+## List Leagues  [/leagues]
+
+### List leagues [GET]
+
+This is to get all leagues for one city
+
++ Response 200 (application/json)
+
+        [
+            {   
+                "league_id":1,
+                "sport_id":1,
+                "sport_name":"Tennis",
+                "users": [{
+                    "user_id":1,
+                    "username":"versus",
+                    "score":1000,
+                    "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg"
+                },
+                {
+                    "user_id":2,
+                    "username":"polo",
+                    "score":900,
+                    "image_path":"https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTAxOTk4NjA3/marco-polo-9443861-1-402.jpg"
+                }
+                {
+                    "user_id":3,
+                    "username":"pippo",
+                    "score":800,
+                    "image_path":"https://vignette.wikia.nocookie.net/waltdisney/images/6/6c/Pippo.png/revision/latest?cb=20130201181007&path-prefix=it"
+                },
+                {
+                    "user_id":4,
+                    "username":"minnie",
+                    "score":700,
+                    "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg"
+                }]
+              
+            },
+            {   
+                "league_id":2,
+                "sport_id":2,
+                "sport_name":"Ping Pong",
+                "users": [{
+                    "user_id":4,
+                    "username":"minnie",
+                    "score":1500,
+                    "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg"
+                },
+                {
+                    "user_id":2,
+                    "username":"polo",
+                    "score":1200,
+                    "image_path":"https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTAxOTk4NjA3/marco-polo-9443861-1-402.jpg"
+                }
+                {
+                    "user_id":3,
+                    "username":"pippo",
+                    "score":800,
+                    "image_path":"https://vignette.wikia.nocookie.net/waltdisney/images/6/6c/Pippo.png/revision/latest?cb=20130201181007&path-prefix=it"
+                },
+                {
+                    "user_id":1,
+                    "username":"versus",
+                    "score":200,
+                    "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg"
+                }]
+              
+            }
+
+        ]        
+
+## Get League num 1 [/barcelona/leagues/{id}]
+
+### Get League num 1 [GET]
+
+This is to get one league
+
++ Response 200 (application/json)
+
+        
+            {   
+                "league_id":1,
+                "sport_id":1,
+                "sport_name":"Tennis",
+                "users": [{
+                    "user_id":1,
+                    "username":"versus",
+                    "score":1000,
+                    "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg"
+                },
+                {
+                    "user_id":2,
+                    "username":"polo",
+                    "score":900,
+                    "image_path":"https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTAxOTk4NjA3/marco-polo-9443861-1-402.jpg"
+                },
+                {
+                    "user_id":3,
+                    "username":"pippo",
+                    "score":800,
+                    "image_path":"https://vignette.wikia.nocookie.net/waltdisney/images/6/6c/Pippo.png/revision/latest?cb=20130201181007&path-prefix=it"
+                },
+                {
+                    "user_id":4,
+                    "username":"minnie",
+                    "score":700,
+                    "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg"
+                }]
+              
+            }
+            
+            
+## Get League num 2 [/barcelona/leagues/2]
+
+### Get League num 2  [GET]
+
+This is to get one league
+
++ Response 200 (application/json)
+
+        
+            {   
+                "league_id":2,
+                "sport_id":2,
+                "sport_name":"Ping-Pong",
+                "users": [ {
+                    "user_id":4,
+                    "username":"minnie",
+                    "score":1300,
+                    "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg"
+                },
+                {
+                    "user_id":1,
+                    "username":"versus",
+                    "score":1200,
+                    "image_path":"http://profilepicturesdp.com/wp-content/uploads/2018/07/profile-picture-black-and-white-1.jpg"
+                },
+                {
+                    "user_id":2,
+                    "username":"polo",
+                    "score":800,
+                    "image_path":"https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTAxOTk4NjA3/marco-polo-9443861-1-402.jpg"
+                },
+                {
+                    "user_id":3,
+                    "username":"pippo",
+                    "score":1800,
+                    "image_path":"https://vignette.wikia.nocookie.net/waltdisney/images/6/6c/Pippo.png/revision/latest?cb=20130201181007&path-prefix=it"
+                }
+               ]
+              
+            }
+
+## Join league [/barcelona/leagues/{id}/join]
+### Join league [POST]
+
+This is to let a user join a league in current city. Sets initial Elo rating based on skill level chosen.
+(Beginner: 700, Intermediate: 1000, Advanced: 1300)
+
++ Request (application/json)
+
+        {
+            "user_id":10,
+            "league_id":2,
+            "initial_elo":1000
+        }
+
++ Response 201 (application/json)
+
+    + Body
+               
+            {
+                "user_id":1,
+                "league_id": 8,
+                "sport_name":"New League!",
+                "data":{
+                    "current_elo":1000,
+                    "matches_played":0,
+                    "matches_won":0,
+                    "matches_lost":0,
+                    "matches_drawn":0
+                    },
+                "elo_history": [
+                    {
+                      "date":"2018-08-18T22:00:00Z",
+                      "score":1000
+                    }
+                    ]
+                
+            }     
+
+## Matches collection  [/matches]
+
+### Get all matches [GET]
+
+This is to get all matches for one user.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "match_id":1,
+                "league_id":1,
+                "sport_name": "Tennis",
+                "user1":{
+                    "user_id":1,
+                    "username":"versus",
+                    "score":null
+                },
+                 "user2":{
+                    "user_id":2,
+                    "username":"polo",
+                    "score":null
+                },
+                "status":"PENDING",
+                "winner_id":null
+            },
+            {
+                "match_id":2,
+                "league_id":1,
+                "sport_name": "Tennis",
+                "user1":{
+                    "user_id":1,
+                    "username":"versus",
+                    "score":null
+                },
+                "user2":{
+                    "user_id":3,
+                    "username":"pippo",
+                    "score":null
+                },
+                "status":"DENIED",
+                "winner_id":null
+            },
+            {
+                "match_id":3,
+                "league_id":1,
+                "sport_name": "Tennis",
+                "user1":{
+                    "user_id":1,
+                    "username":"versus",
+                    "score":null
+                },
+                "user2":{
+                    "user_id":4,
+                    "username":"minnie",
+                    "score":null
+                },
+                "status":"ACCEPTED",
+                "winner_id":null
+            },
+            {
+                "match_id":4,
+                "league_id":1,
+                "sport_name": "Tennis",
+                "user1":{
+                    "user_id":1,
+                    "username":"versus",
+                    "score":null
+                },
+                "user2":{
+                    "user_id":5,
+                    "username":"nadal",
+                    "score":null
+                },
+                "status":"FINISHED",
+                "winner_id":5
+            }
+        ]
+        
+        
+## Get An Opponent  [/opponent/{leagueid}/{userid}]
+
+### Get an opponent [GET]
+
+This is to get all matches for one user.
+
++ Response 200 (application/json)
+
+
+        {
+            "user_id":4,
+            "username":"minnie",
+            "score":1300,
+            "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg",
+            "matches_won": 25,
+            "matches_lost": 7,
+            "match_history": [
+                {
+                  "result": "won",
+                  "score": "3-1",
+                  "elo": 1000
+                },
+                {
+                  "result": "won",
+                  "score": "3-2",
+                  "elo": 1100
+                },
+                {
+                  "result": "won",
+                  "score": "4-2",
+                  "elo": 1300
+                },
+                {
+                  "result": "draw",
+                  "score": "2-2",
+                  "elo": 1350
+                },
+                {
+                  "result": "lost",
+                  "score": "1-5",
+                  "elo": 1250
+                },
+                {
+                  "result": "won",
+                  "score": "6-1",
+                  "elo": 1500
+                },
+                {
+                  "result": "lost",
+                  "score": "1-3",
+                  "elo": 1450
+                }
+            ]
+        }
+
+
+## Create a new match [/versus]
+
+
+### Create Match [POST]
+
+This is to post a new Match
+
++ Request (application/json)
+
+        {
+            "league_id":1,
+            "user1_id": 2,
+            "user2_id": 3
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "match_id":5,
+                "league_id":1,
+                "sport_name":"Tennis", 
+                "user1":{
+                    "user_id":1,
+                    "score":null,
+                    "new_elo":null
+                },
+                "user2":{
+                    "user_id":3,
+                    "score":null,
+                    "new_elo":null,
+                    "image_path":"https://www.republica.com/wp-content/uploads/2018/01/fotonoticia_20180122090433_1920.jpg",
+                    "username": "minnie"
+                },
+                "match_datetime": "0000-00-00 00:00:00",
+                "location": null,
+                "status":"PENDING",
+                "winner_id":null
+            }
+            
+            
+## Accept match  [/matches/{id}/accept]
+
+### Accept match [PUT]
+
+This is to change the status of one match to 'accepted'.
+
++ Response 200 (application/json)
+
+        {
+            "match_id":5,
+            "sport_name": "Juggling",
+            "league_id":1,
+            "user1":{
+                "user_id":3,
+                "username":"federerer",
+                "score":null,
+                "new_elo":null
+            },
+             "user2":{
+                "user_id":1,
+                "username":"versus",
+                "score":null,
+                "new_elo":null
+            },
+            "match_datetime": "0000-00-00 00:00:00",
+            "location": null,
+            "status":"ACCEPTED",
+            "winner_id":null
+        }
+        
+## Reject match  [/matches/{id}/reject]
+
+### Reject match [PUT]
+
+This is to change the status of one match to 'denied'.
+
++ Response 200 (application/json)
+
+        {
+            "match_id":5,
+            "sport_name": "Juggling",
+            "league_id":1,
+            "user1":{
+                "user_id":3,
+                "username":"federerer",
+                "score":null,
+                "new_elo":null
+            },
+             "user2":{
+                "user_id":1,
+                "username":"versus",
+                "score":null,
+                "new_elo":null
+            },
+            "match_datetime": "0000-00-00 00:00:00",
+            "location": null,
+            "status":"DENIED",
+            "winner_id":null
+        }
+        
+        
+## Delete match  [/matches/{id}/delete]
+
+### Delete match [PUT]
+
+This is to change the status of one match to 'deleted'.
+
++ Response 200 (application/json)
+
+        {
+            "match_id":5,
+            "sport_name": "Juggling",
+            "league_id":1,
+            "user1":{
+                "user_id":3,
+                "username":"federerer",
+                "score":null,
+                "new_elo":null
+            },
+             "user2":{
+                "user_id":1,
+                "username":"versus",
+                "score":null,
+                "new_elo":null
+            },
+            "match_datetime": "0000-00-00 00:00:00",
+            "location": null,
+            "status":"DENIED",
+            "winner_id":null
+        }         
+    
+    
+## Set match date, time and location  [/matches/{id}/set]
+
+### Set match date, time and location [POST]
+
+This is to set match date and time ('YYYY-MM-DD HH:MM:SS') and location when match is accepted.
+
++ Request (application/json)
+
+        {
+            "match_datetime": "2018-08-18 12:05:00",
+            "location": "Passeig de Sant Joan, 20, Barcelona, Spain"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "match_id":5,
+            "league_id":1,
+            "user1":{
+                "user_id":1,
+                "score":null,
+                "new_elo":null
+            },
+             "user2":{
+                "user_id":2,
+                "score":null,
+                "new_elo":null
+            },
+            "match_datetime": "2018-08-18T10:05:00.000Z",
+            "location": "Passeig de Sant Joan, 20, Barcelona, Spain",
+            "status":"ACCEPTED",
+            "winner_id":null
+        }    
+        
+        
+## Finish match  [/matches/{id}/finish]
+
+### Finish match [POST]
+
+This is to change status of one match to 'finished'. Adds match results.
+
++ Request (application/json)
+
+         {
+            "league_id":1,
+            "user1":{
+                "user_id":1,
+                "score":3
+            },
+             "user2":{
+                "user_id":2,
+                "score":1
+            }
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "match_id":5,
+                "league_id":1,
+                "user1":{
+                    "user_id":1,
+                    "score":3,
+                    "new_elo":1024
+                },
+                "user2":{
+                    "user_id":2,
+                    "score":1,
+                    "new_elo":1176
+                },
+                "match_datetime": "2018-08-18T10:05:00.000Z",
+                "location": "Passeig de Sant Joan, 20, Barcelona, Spain",
+                "status":"FINISHED",
+                "winner_id":1
+            }
+            
+            
