@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-const conn = require('../db');
+const conn = require('../db/db')
 
 exports.get = (userId, leagueId) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `  SELECT matches.match_id, a.user_id as user1_id,
       b.user_id as user2_id,
       a.current_elo,
@@ -22,11 +22,11 @@ INNER JOIN leagues ON a.league_id = leagues.league_id
 INNER JOIN sports USING (sport_id)
 INNER JOIN users d ON a.user_id = d.user_id
 LEFT JOIN users e ON b.user_id = e.user_id
-WHERE leagues.league_id = ? AND a.user_id = ?;`;
+WHERE leagues.league_id = ? AND a.user_id = ?;`
 
-    conn.query(sql,[leagueId,userId],(err, res) => {
-      if (err) return reject(err);
-      resolve(res);
-    });
-  });
-};
+    conn.query(sql, [leagueId, userId], (err, res) => {
+      if (err) return reject(err)
+      resolve(res)
+    })
+  })
+}

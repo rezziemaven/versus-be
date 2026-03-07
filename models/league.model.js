@@ -1,24 +1,24 @@
-'use strict';
+'use strict'
 
-const conn = require('../db');
+const conn = require('../db/db')
 
 exports.getAll = (cityName) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `
       SELECT leagues.league_id, sports.sport_id, sports.sport_name, sports.sport_image_path
         FROM leagues
           INNER JOIN cities USING (city_id)
           INNER JOIN sports USING (sport_id)
-        WHERE cities.city_name = ?`;
+        WHERE cities.city_name = ?`
     conn.query(sql, [cityName], (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+      if (err) reject(err)
+      resolve(res)
+    })
+  })
+}
 
 exports.getOne = (leagueId) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `
       SELECT leagues.league_id, sports.sport_id, sports.sport_name, users.user_id, users.username, users_leagues.current_elo, users.user_image_path, users_leagues.users_leagues_id
       FROM leagues
@@ -27,10 +27,10 @@ exports.getOne = (leagueId) => {
         INNER JOIN sports USING (sport_id)
         INNER JOIN users USING (user_id)
       WHERE leagues.league_id = ?
-      ORDER BY users_leagues.current_elo DESC, users_leagues.date_joined ASC`;
+      ORDER BY users_leagues.current_elo DESC, users_leagues.date_joined ASC`
     conn.query(sql, [leagueId], (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+      if (err) reject(err)
+      resolve(res)
+    })
+  })
+}

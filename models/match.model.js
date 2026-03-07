@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const conn = require('../db');
-const { setWinner } = require('../helpers/winner.helper');
-const { calculateElo } = require('../helpers/elo.helper');
+const conn = require('../db/db')
+const { setWinner } = require('../helpers/winner.helper')
+const { calculateElo } = require('../helpers/elo.helper')
 
 exports.getAll = (userId, cityName) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `
     SELECT matches.match_id, a.user_id as user1_id, b.user_id as user2_id,
     matches.user1_score, matches.user2_score, matches.user1_new_elo, matches.user2_new_elo,
@@ -20,16 +20,16 @@ exports.getAll = (userId, cityName) => {
       INNER JOIN leagues ON a.league_id = leagues.league_id OR b.league_id = leagues.league_id
       INNER JOIN cities USING (city_id)
       INNER JOIN sports USING (sport_id)
-      WHERE d.user_id = ? OR e.user_id = ? AND cities.city_name = ?`;
+      WHERE d.user_id = ? OR e.user_id = ? AND cities.city_name = ?`
     conn.query(sql, [userId, userId, cityName], (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+      if (err) reject(err)
+      resolve(res)
+    })
+  })
+}
 
 exports.getOne = (matchId) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `
     SELECT matches.match_id, a.user_id as user1_id, b.user_id as user2_id,
     matches.user1_score, matches.user2_score, matches.user1_new_elo, matches.user2_new_elo,
@@ -44,62 +44,69 @@ exports.getOne = (matchId) => {
       INNER JOIN leagues ON a.league_id = leagues.league_id OR b.league_id = leagues.league_id
       INNER JOIN cities USING (city_id)
       INNER JOIN sports USING (sport_id)
-      WHERE match_id = ?`;
+      WHERE match_id = ?`
     conn.query(sql, [matchId], (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
-
-exports.post = (ul1,ul2) => {
-  return new Promise ((resolve, reject) => {
-    const sql = `INSERT INTO matches (users_leagues_1_id, users_leagues_2_id) VALUES ( ? , ? )`
-    conn.query(sql, [ul1, ul2] , (err, res) => {
-      if (err) return resolve(err);
+      if (err) reject(err)
       resolve(res)
     })
   })
-};
+}
+
+exports.post = (ul1, ul2) => {
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO matches (users_leagues_1_id, users_leagues_2_id) VALUES ( ? , ? )`
+    conn.query(sql, [ul1, ul2], (err, res) => {
+      if (err) return resolve(err)
+      resolve(res)
+    })
+  })
+}
 
 exports.update = (matchId, action) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `UPDATE matches
                   SET status = ?
-                  WHERE match_id = ? LIMIT 1`;
+                  WHERE match_id = ? LIMIT 1`
     conn.query(sql, [action, matchId], (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+      if (err) reject(err)
+      resolve(res)
+    })
+  })
+}
 
 exports.updateDetails = (matchId, match) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `UPDATE matches
                   SET match_datetime = ?, location = ?
-                  WHERE match_id = ? LIMIT 1`;
+                  WHERE match_id = ? LIMIT 1`
     conn.query(sql, [match.match_datetime, match.location, matchId], (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+      if (err) reject(err)
+      resolve(res)
+    })
+  })
+}
 
 exports.updateFinish = (matchId, match, winner = '') => {
-  const result = calculateElo(match.user1.old_elo, match.user2.old_elo,match.user1.score,match.user2.score);
-  winner = setWinner(match.user1.score,match.user2.score);
-  return new Promise ((resolve, reject) => {
+  const result = calculateElo(
+    match.user1.old_elo,
+    match.user2.old_elo,
+    match.user1.score,
+    match.user2.score,
+  )
+  winner = setWinner(match.user1.score, match.user2.score)
+  return new Promise((resolve, reject) => {
     const sql = `UPDATE matches
                   SET user1_score = ?, user2_score = ?,
                       user1_new_elo = ?, user2_new_elo = ?,
                       winner_id = ${winner}
-                  WHERE match_id = ? LIMIT 1`;
-    conn.query(sql, [match.user1.score, match.user2.score,
-      result.user1_newElo, result.user2_newElo, matchId],
+                  WHERE match_id = ? LIMIT 1`
+    conn.query(
+      sql,
+      [match.user1.score, match.user2.score, result.user1_newElo, result.user2_newElo, matchId],
       (err, res) => {
-      if (err) reject(err);
-      resolve(res);
-    });
-  });
-};
+        if (err) reject(err)
+        resolve(res)
+      },
+    )
+  })
+}

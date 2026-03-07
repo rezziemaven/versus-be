@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-const conn = require('../db');
+const conn = require('../db/db')
 
 exports.getUserWithMatchesAndStats = (id) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const sql = `
       SELECT matches.match_id, a.user_id as user1_id,
             b.user_id as user2_id,
@@ -25,38 +25,38 @@ exports.getUserWithMatchesAndStats = (id) => {
               INNER JOIN users d ON a.user_id = d.user_id
               LEFT JOIN users e ON b.user_id = e.user_id
             WHERE a.user_id = ? OR b.user_id = ?
-            ORDER BY matches.match_datetime ASC;`;
+            ORDER BY matches.match_datetime ASC;`
 
     conn.query(sql, [id, id], (err, res) => {
-      if (err) return reject(err);
-      resolve(res);
-    });
-  });
-};
+      if (err) return reject(err)
+      resolve(res)
+    })
+  })
+}
 
 exports.post = (user) => {
-  return new Promise ((resolve, reject) => {
-    conn.query('INSERT INTO users SET ?', [user] , (err, res) => {
-      if (err) return resolve(err);
+  return new Promise((resolve, reject) => {
+    conn.query('INSERT INTO users SET ?', [user], (err, res) => {
+      if (err) return resolve(err)
       resolve(res)
     })
   })
-};
+}
 
 exports.getUser = (id) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     conn.query('SELECT * FROM users WHERE user_id = ?', [id], (err, res) => {
-      if (err) return resolve(err);
+      if (err) return resolve(err)
       resolve(res)
     })
   })
-};
+}
 
 exports.getUserByUsername = (username) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     conn.query('SELECT * FROM users WHERE username = ?', [username], (err, res) => {
-      if (err) return resolve(err);
+      if (err) return resolve(err)
       resolve(res)
     })
   })
-};
+}
