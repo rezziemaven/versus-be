@@ -1,23 +1,19 @@
-'use strict';
+'use strict'
 
-require('dotenv').config();
-const logger = require('koa-logger');
-const Koa = require('koa');
-const cors = require('@koa/cors');
-const bodyParser = require('koa-bodyparser');
+require('dotenv').config()
+const logger = require('koa-logger')
+const Koa = require('koa')
+const cors = require('@koa/cors')
+const bodyParser = require('koa-bodyparser')
 
-const app = new Koa();
+const app = new Koa()
 
-const router = require('./router');
+const router = require('./router')
 
-app
-  .use(logger())
-  .use(cors())
-  .use(bodyParser())
-  .use(router.routes());
+app.use(logger()).use(cors()).use(bodyParser()).use(router.routes())
 
- const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
- app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
- });
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+})

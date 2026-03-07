@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const user1WinsQuery = `
   UPDATE stats
@@ -13,7 +13,7 @@ const user1WinsQuery = `
         matches_lost = case when user_id = ? then matches_lost+1
                             else matches_lost
                        end
-    WHERE user_id in (?, ?) AND league_id = ?`;
+    WHERE user_id in (?, ?) AND league_id = ?`
 
 const user1LosesQuery = `
   UPDATE stats
@@ -28,7 +28,7 @@ const user1LosesQuery = `
         matches_won = case when user_id = ? then matches_won+1
                            else matches_won
                       end
-    WHERE user_id in (?, ?) AND league_id = ?`;
+    WHERE user_id in (?, ?) AND league_id = ?`
 
 const user1TiesQuery = `
   UPDATE stats
@@ -41,12 +41,12 @@ const user1TiesQuery = `
                                when user_id = ? then matches_drawn+1
                                else matches_drawn
                           end
-    WHERE user_id in (?, ?) AND league_id = ?`;
+    WHERE user_id in (?, ?) AND league_id = ?`
 
 exports.statsQuery = (user1Score, user2Score) => {
-  if (user1Score > user2Score) return user1WinsQuery;
-  else if (user1Score < user2Score) return user1LosesQuery;
-  else return user1TiesQuery;
+  if (user1Score > user2Score) return user1WinsQuery
+  else if (user1Score < user2Score) return user1LosesQuery
+  else return user1TiesQuery
 }
 
 // steps to update stats for each player:
