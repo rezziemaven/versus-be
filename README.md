@@ -13,8 +13,8 @@ Versus is a mobile platform that connects casual athletes by the sports they lov
 ## Repositories
 
 The Versus platform is split into two repositories:
-- [Frontend](https://github.com/rezziemaven/versus-be) (built with React and D3)
-- [Backend](https://github.com/OliWalker/versus-fe) (built with Koa and MariaDB)
+- [Frontend](https://github.com/OliWalker/versus-fe) (built with React and D3)
+- [Backend](https://github.com/rezziemaven/versus-be) (built with Koa and MariaDB)
 
 This project is the **backend** for the platform.
 
